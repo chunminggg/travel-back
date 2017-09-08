@@ -1,4 +1,4 @@
-const  BackendTheme  = require('../controllers/api.export')
+const  BackendTheme  = require('../controllers/theme')
 const router = require('koa-router')()
 
 router

@@ -3,18 +3,18 @@ const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')()
+const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const apiRouter = require('./routes/api.router')
+const router = require('./routes/api.router')
 
 // error handler
 onerror(app)
 
 // middlewares
-// app.use(bodyparser({
-//   enableTypes: ['json', 'form', 'text']
-// }))
+app.use(bodyparser({
+  enableTypes: ['json', 'form', 'text']
+}))
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -34,8 +34,8 @@ app.use(async (ctx, next) => {
 // routes
 app.use(require('./middlewares/response'))
 app.use(require('./middlewares/filter'))
-app.use(apiRouter.routes())
-	 .use(apiRouter.allowedMethods())
+app.use(router.routes(),router.allowedMethods())
+	
 
 
 // response
